@@ -8,7 +8,7 @@ export default defineConfig({
     vue(),
     federation({
         name: 'chat-plugin',
-        filename: 'remoteEntry.js',
+        filename: 'plugin.js',
         // Modules to expose
         exposes: {
             './Plugin': './src/components/PluginComponent.vue',
@@ -28,21 +28,19 @@ export default defineConfig({
   /*define: {
     'process.env': {},
   },*/
+  base: process.env.PLUGIN_BASE_PATH || './',
   build: {
-    outDir: './server/views',
-    /*lib: {
-      entry: 'src/main.ts', // Entry point for the plugin
-      name: 'ChatPlugin',
-      fileName: (format) => `ChatPlugin.${format}.js`
-    },*/
-    /*rollupOptions: {
-      // Ensure the component can be imported by the main app
+    outDir: './dist',
+    lib: {
+      entry: './src/components/PluginComponent.vue',
+      formats: ['es']
+    },
+    rollupOptions: {
       external: ['vue'],
       output: {
-        globals: {
-          vue: 'Vue'
-        }
+        entryFileNames: '[name].js',
+        assetFileNames: '[name][extname]'
       }
-    }*/
+    }
   }
 });
