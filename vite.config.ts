@@ -22,6 +22,9 @@ export default defineConfig({
       promiseImportName: i => `__tla_${i}`
     })
   ],
+  resolve: {
+    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
+  },
   /*server: {
     port: 3000,
   },*/
